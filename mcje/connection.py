@@ -37,7 +37,7 @@ class Connection:
         """
 
         s = b"".join([f, b"(", flatten_parameters_to_bytestring(data), b")", b"\n"])
-        # print(s)
+        print(s)
         self._send(s)
 
     def _send(self, s):
@@ -53,11 +53,13 @@ class Connection:
     def receive(self):
         """Receives data. Note that the trailing newline '\n' is trimmed"""
         s = self.socket.makefile("r").readline().rstrip("\n")
+        print(s)
         if s == Connection.RequestFailed:
             raise RequestError("%s failed"%self.lastSent.strip())
         return s
 
     def sendReceive(self, *data):
         """Sends and receive data"""
+        print(*data)
         self.send(*data)
         return self.receive()

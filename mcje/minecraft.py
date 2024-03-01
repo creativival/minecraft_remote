@@ -44,8 +44,10 @@ class CmdPositioner:
         self.pkg = packagePrefix
 
     def getPos(self, id):
+        print('getpos')
         """Get entity position (entityId:int) => Vec3"""
         s = self.conn.sendReceive(self.pkg + b".getPos", id)
+        print(s)
         try:
             return Vec3(*list(map(float, s.split(","))))
         except:
